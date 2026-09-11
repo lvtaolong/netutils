@@ -150,9 +150,9 @@ int tftp_read_data(struct tftp_xfer *xfer, struct tftp_packet *pack, int len)
         tftp_printf("err[%d] msg:%s code:%d\n", ntohs(pack->info.code), pack->data, ntohs(pack->info.code));
         return -TFTP_ECMD;
     }
-    else if ((_private->block + 1) != pack->info.block)
+    else if ((_private->block + 1) != ntohs(pack->info.block))
     {
-        tftp_printf("Bad block recv:%d != check:%d\n", _private->block + 1, pack->info.block);
+        tftp_printf("Bad block recv:%d != check:%d\n", _private->block + 1, ntohs(pack->info.block));
         return -TFTP_EBLK;
     }
 
